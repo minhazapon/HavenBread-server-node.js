@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 ///------------------------------
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = "mongodb+srv://aponBase:aponbase50374409@cluster0.ruz4b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -65,8 +65,65 @@ async function run() {
    
     }) 
 
-
     //read//
+
+
+    //delete//
+
+    app.delete('/users/:id', async(req, res) => {
+
+      const id = req.params.id 
+      const query = { _id: new ObjectId(id)}
+      const result = await userCollection.deleteOne(query)
+      res.send(result)
+ 
+    }) 
+
+
+    //delete//
+
+
+    //update//
+
+    app.get('/users/:id', async(req, res) => {
+
+      const id = req.params.id 
+      const query = { _id: new ObjectId(id)}
+      const result = await userCollection.findOne(query)
+      res.send(result)
+ 
+    }) 
+
+    app.put('/users/:id', async(req, res) => {
+
+      const id = req.params.id 
+      const upDateUsers = req.body 
+      console.log(id, upDateUsers)
+      const filter = { _id: new  ObjectId(id)}
+      const option = {upsert: true}
+      const upSer = {
+         $set: {
+
+             name: upDateUsers.name,
+             Chef: upDateUsers.Chef,
+             Supplier: upDateUsers.Supplier,
+             PhotoUrl: upDateUsers.PhotoUrl,
+             Taste: upDateUsers.Taste,
+             Category: upDateUsers.Category,
+             Details: upDateUsers.Details
+
+         }
+      }
+
+      const result = await userCollection.updateOne(filter, upSer, option)
+      res.send(result)
+ 
+    }) 
+    
+
+
+
+    //update//
 
 
 
