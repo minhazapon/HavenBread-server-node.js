@@ -39,9 +39,22 @@ async function run() {
      
 
     //CRUD//
-      
+         
+       const database = client.db('usersDB')
+       const userCollection = database.collection('users');
 
-     //create//
+     //create// 
+       
+     app.post('/users', async(req, res) => {
+
+        const users = req.body 
+        console.log(users)
+        const result = await userCollection.insertOne(users) 
+        console.log(result)
+
+     
+    }) 
+
 
      
      //create//
