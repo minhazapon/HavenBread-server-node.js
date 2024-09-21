@@ -17,8 +17,6 @@ app.get('/', (req, res) => {
 ///------------------------------
 
 
-
-
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://aponBase:aponbase50374409@cluster0.ruz4b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -54,10 +52,21 @@ async function run() {
 
      
     }) 
+    //create//
+
+    //read//
+      
+
+    app.get('/users', async(req, res) => {
+
+        const cursor = userCollection.find()
+        const result = await cursor.toArray();
+        res.send(result)
+   
+    }) 
 
 
-     
-     //create//
+    //read//
 
 
 
